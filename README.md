@@ -1,6 +1,6 @@
 # CodeIgniter 4 Framework
 
-## Belajar Untuk LATEK
+## Belajar Untuk Web FrameWorks
 
 - CodeIgniter 4
 - mysql
