@@ -6,7 +6,16 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
-//$routes->setAutoRoute(true);
+// $routes->setAutoRoute(true);
+
+$routes->group('pangkat', function ($routes) {
+    $routes->get('', 'Pangkat::index');
+    $routes->get('tambah', 'Pangkat::tambah');
+    $routes->post('create', 'Pangkat::create');
+    $routes->get('ganti/(:num)', 'Pangkat::ganti/$1');
+    $routes->post('update', 'Pangkat::update');
+    $routes->get('hapus/(:num)', 'Pangkat::hapus/$1');
+});
 
 $routes->group('korps', function ($routes) {
     $routes->get('', 'Korps::index');

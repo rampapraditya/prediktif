@@ -1,6 +1,21 @@
 <?php echo $this->extend("template/index"); ?>
 <?php echo $this->section("content"); ?>
-<!-- page content -->
+<script>
+    function tambah(){
+        window.location.href = "<?php echo base_url('pangkat/tambah') ?>";
+    }
+
+    function edit(id){
+        window.location.href = "<?php echo base_url('pangkat/ganti/') ?>" + id;
+    }
+
+    function hapus(id, nama){
+        if (confirm("Apakah Anda yakin ingin menghapus " + nama  + " ?")) {
+            window.location.href = "<?php echo base_url('pangkat/hapus/') ?>" + id;
+        }
+    }
+
+</script>
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
@@ -13,7 +28,8 @@
             <div class="col-md-12 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        
+                        <button type="button" class="btn btn-md btn-primary" onclick="tambah();">Tambah</button>
+                        <button type="button" class="btn btn-md btn-secondary">Reload</button>
                     </div>
                     <div class="x_content">
                         <table class="table">
@@ -32,7 +48,10 @@
                                 <tr>
                                     <th><?php echo $no; ?></th>
                                     <th><?php echo $row->namapangkat; ?></th>
-                                    <th></th>
+                                    <th>
+                                        <button type="button" class="btn btn-sm btn-success" onclick="edit('<?php echo $row->idpangkat; ?>');">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="hapus('<?php echo $row->idpangkat; ?>', '<?php echo $row->namapangkat; ?>');">Hapus</button>
+                                    </th>
                                 </tr>
                                     <?php
                                     $no++;
