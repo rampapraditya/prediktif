@@ -28,8 +28,8 @@
             <div class="col-md-12 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <button type="button" class="btn btn-md btn-primary" onclick="tambah();">Tambah</button>
-                        <button type="button" class="btn btn-md btn-secondary">Reload</button>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="tambah();">Tambah</button>
+                        <button type="button" class="btn btn-sm btn-secondary">Reload</button>
                     </div>
                     <div class="x_content">
                         <table class="table">

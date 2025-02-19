@@ -18,16 +18,16 @@
                         <form class="form-horizontal form-label-left" action="<?php echo base_url('korps/update') ?>" method="POST">
                             <input type="hidden" id="id" name="id" value="<?php echo $list->idkorps; ?>">
                             <div class="item form-group">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align" for="nama_korps">Nama Korps</label>
-                                <div class="col-md-6 col-sm-6 ">
+                                <label class="col-form-label col-md-2 col-sm-2 label-align" for="nama_korps">Nama Korps</label>
+                                <div class="col-md-10 col-sm-10 ">
                                     <input type="text" id="nama_korps" name="nama_korps" required="required" class="form-control" value="<?php echo $list->namakorps; ?>">
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
                             <div class="item form-group">
-                                <div class="col-md-6 col-sm-6 offset-md-3">
-                                    <button type="submit" class="btn btn-md btn-success">Submit</button>
-                                    <button type="reset" class="btn btn-md btn-secondary">Reset</button>
+                                <div class="col-md-10 col-sm-10 offset-md-2">
+                                    <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                                    <button type="reset" class="btn btn-sm btn-secondary">Reset</button>
                                 </div>
                             </div>
 

@@ -15,5 +15,11 @@ class KorpsModel extends Model {
 
     // Opsional: Gunakan timestamps jika ingin mencatat waktu pembuatan/perubahan
     protected $useTimestamps = false;
-       
+    
+    public function contohJoin()
+    {
+        return $this->select('posts.*, users.name, users.email')
+                    ->join('users', 'users.id = posts.user_id', 'left')
+                    ->findAll();
+    }
 }
