@@ -26,10 +26,20 @@ $routes->group('korps', function ($routes) {
     $routes->get('hapus/(:num)', 'Korps::hapus/$1');
 });
 
-// $routes->get('/korps', 'Korps::index');
-// $routes->post('/korps', 'Korps::create');
-// $routes->post('/korps', 'Korps::create');
-// $routes->get('/korps/(:num)', 'Korps::show/$1');
+$routes->group('satker', function ($routes) {
+    $routes->get('', 'Satker::index');
+    $routes->get('tambah', 'Satker::tambah');
+    $routes->post('create', 'Satker::create');
+    $routes->get('ganti/(:num)', 'Satker::ganti/$1');
+    $routes->post('update', 'Satker::update');
+    $routes->get('hapus/(:num)', 'Satker::hapus/$1');
+});
 
-// $routes->put('/korps/(:num)', 'Korps::update/$1');
-// $routes->delete('/korps/(:num)', 'Korps::delete/$1');
+$routes->group('personil', function ($routes) {
+    $routes->get('', 'Personil::index');
+    $routes->get('tambah', 'Personil::tambah');
+    $routes->post('create', 'Personil::create');
+    $routes->get('ganti/(:num)', 'Personil::ganti/$1');
+    $routes->post('update', 'Personil::update');
+    $routes->get('hapus/(:num)', 'Personil::hapus/$1');
+});
