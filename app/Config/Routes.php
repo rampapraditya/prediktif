@@ -6,6 +6,14 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+
+$routes->get('/contohsesi', 'Contohsesi::index');
+$routes->get('/contohsesi/home', 'Contohsesi::home');
+
+$routes->post('/contohsesi/login', 'Contohsesi::ceklogin');
+$routes->get('/contohsesi/getdata', 'Contohsesi::ambildatasesi');
+$routes->get('/contohsesi/hapussesi', 'Contohsesi::hapussesi');
+
 // $routes->setAutoRoute(true);
 
 $routes->group('pangkat', function ($routes) {
