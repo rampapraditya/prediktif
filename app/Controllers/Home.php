@@ -18,6 +18,10 @@ class Home extends BaseController
         }else{
             $this->modul->halaman('login');
         }
-        
+    }
+
+    public function logout(){
+        session()->destroy();
+        $this->modul->halaman('login');
     }
 }

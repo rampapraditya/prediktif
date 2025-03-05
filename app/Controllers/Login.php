@@ -2,54 +2,42 @@
 
 namespace App\Controllers;
 
-use App\Libraries\Modul;
 use App\Models\UserModel;
+use App\Libraries\Modul;
 
 class Login extends BaseController
 {
     
-    private $modul;
     private $model;
+    private $modul;
     
     public function __construct() {
-        $this->modul = new Modul();
         $this->model = new UserModel();
+        $this->modul = new Modul();
     }
     
     public function index() {
-        $data = array();
-        return view('index', $data);
+        return view('index');
     }
 
-    public function proses()
-    {
-        // Validasi input
+    public function proses(){
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        // Cek CSRF token
         if (!$this->validate(['csrf_token_name' => 'required'])) {
-            //echo "CSRF Token tidak valid";
-            return redirect()->back()->with('error', 'CSRF Token tidak valid');
+            $this->modul->pesan_halaman('Akses key salah', 'login');
         }else{
-            // Cek user di database
             $user = $this->model->where('username', $username)->first();
             if ($user && password_verify($password, $user->password)) {
                 session()->set([
                     'nama' => $username,
                     'logged' => true
                 ]);
-                return redirect()->to('/home')->with('success', 'Login berhasil');
+                $this->modul->pesan_halaman('Login Sukses', 'home');
             } else {
-                return redirect()->back()->with('error', 'Username atau password salah');
+                $this->modul->pesan_halaman('Username atau password salah', 'login');
             }
         }
-    }
-
-    public function logout()
-    {
-        session()->destroy();
-        return redirect()->to('/login')->with('success', 'Logout berhasil');
     }
 
 }
