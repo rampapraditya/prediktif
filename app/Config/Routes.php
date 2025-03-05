@@ -5,7 +5,15 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->group('/', function ($routes) {
+    $routes->get('', 'Home::index');
+    $routes->get('home', 'Home::index');
+});
+
+$routes->group('login', function ($routes) {
+    $routes->get('', 'Login::index');
+    $routes->post('proses', 'Login::proses');
+});
 
 $routes->get('/contohsesi', 'Contohsesi::index');
 $routes->get('/contohsesi/home', 'Contohsesi::home');
