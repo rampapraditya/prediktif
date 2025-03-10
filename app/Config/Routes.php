@@ -11,6 +11,12 @@ $routes->group('/', function ($routes) {
     $routes->get('home/logout', 'Home::logout');
 });
 
+$routes->group('contohajax', function ($routes) {
+    $routes->get('', 'Contohajax::index');
+    $routes->post('jumlah', 'Contohajax::jumlah');
+    $routes->get('ajax_get', 'Contohajax::ajax_get');
+});
+
 $routes->group('login', function ($routes) {
     $routes->get('', 'Login::index');
     $routes->post('proses', 'Login::proses');
