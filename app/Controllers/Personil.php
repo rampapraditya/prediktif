@@ -56,15 +56,19 @@ class Personil extends BaseController
 
     public function ganti($id) {
         $data['list'] = $this->model->find($id);
-        return view('korps/ganti', $data);
+        return view('personil/ganti', $data);
     }
 
     public function update() {
         $data = array(
-            'namakorps' => $this->request->getPost('nama_korps')
+            'nrp' => $this->request->getPost('nrp'),
+            'nama' => $this->request->getPost('nama'),
+            'idkorps' => $this->request->getPost('korps'),
+            'idpangkat' => $this->request->getPost('pangkat'),
+            'idsatker' => $this->request->getPost('satker'),
         );
-        $idkorps = $this->request->getPost('id');
-        if ($this->model->update($idkorps, $data)) {
+        $idpersonil = $this->request->getPost('id');
+        if ($this->model->update($idpersonil, $data)) {
             $this->modul->pesan_halaman("Data tersimpan", "korps");
         }else{
             $this->modul->pesan_halaman("Data gagal tersimpan", "korps");

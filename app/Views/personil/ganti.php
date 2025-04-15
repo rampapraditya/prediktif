@@ -7,7 +7,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Data Korps <small>Ganti data korps</small></h3>
+                <h3>Data Personil <small>Ganti data personil</small></h3>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -16,11 +16,35 @@
                 <div class="x_panel">
                     <div class="x_content">
                         <form class="form-horizontal form-label-left" action="<?php echo base_url('korps/update') ?>" method="POST">
-                            <input type="hidden" id="id" name="id" value="<?php echo $list->idkorps; ?>">
+                            <input type="hidden" id="id" name="id" value="<?php echo $list->idpersonil; ?>">
                             <div class="item form-group">
-                                <label class="col-form-label col-md-2 col-sm-2 label-align" for="nama_korps">Nama Korps</label>
+                                <label class="col-form-label col-md-2 col-sm-2 label-align" for="nrp">NRP</label>
                                 <div class="col-md-10 col-sm-10 ">
-                                    <input type="text" id="nama_korps" name="nama_korps" required="required" class="form-control" value="<?php echo $list->namakorps; ?>">
+                                    <input type="text" id="nrp" name="nrp" required="required" class="form-control" value="<?php echo $list->nrp; ?>">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-2 col-sm-2 label-align" for="nama">Nama</label>
+                                <div class="col-md-10 col-sm-10 ">
+                                    <input type="text" id="nama" name="nrp" required="required" class="form-control" value="<?php echo $list->nama; ?>">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-2 col-sm-2 label-align" for="nama">Korps</label>
+                                <div class="col-md-10 col-sm-10 ">
+                                    
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-2 col-sm-2 label-align" for="nama">Pangkat</label>
+                                <div class="col-md-10 col-sm-10 ">
+                                    
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-2 col-sm-2 label-align" for="nama">Satker</label>
+                                <div class="col-md-10 col-sm-10 ">
+                                    
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
