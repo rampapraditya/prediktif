@@ -60,9 +60,19 @@ $routes->group('satker', function ($routes) {
 
 $routes->group('personil', function ($routes) {
     $routes->get('', 'Personil::index');
+    $routes->get('index1', 'Personil::index1');
     $routes->get('tambah', 'Personil::tambah');
     $routes->post('create', 'Personil::create');
     $routes->get('ganti/(:num)', 'Personil::ganti/$1');
     $routes->post('update', 'Personil::update');
     $routes->get('hapus/(:num)', 'Personil::hapus/$1');
+});
+
+$routes->group('personilajax', function ($routes) {
+    $routes->get('', 'Personilajax::index');
+    $routes->get('ajaxlist', 'Personilajax::ajaxlist');
+    $routes->post('ajax_add', 'Personilajax::ajax_add');
+    $routes->get('show/(:any)', 'Personilajax::show/$1');
+    $routes->post('ajax_edit', 'Personilajax::ajax_edit');
+    $routes->get('hapus/(:any)', 'Personilajax::hapus/$1');
 });

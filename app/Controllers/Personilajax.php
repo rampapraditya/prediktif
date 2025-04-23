@@ -8,7 +8,7 @@ use App\Models\SatkerModel;
 use App\Models\PangkatModel;
 use App\Libraries\Modul;
 
-class Personil extends BaseController
+class Personilajax extends BaseController
 {
     
     private $model;
@@ -27,24 +27,37 @@ class Personil extends BaseController
     }
     
     public function index() {
-        $data['list'] = $this->model->tampilData();
-        return view('personil/index', $data);
+        $data = array();
+        return view('personil_ajax/index', $data);
     }
 
-    public function index1() {
-        $data['list'] = $this->model->tampilData();
-        return view('personil/index1', $data);
+    public function ajaxlist() {
+        $data = array();
+        $no = 1;
+        $list = $this->model->tampilData();
+        foreach ($list as $row) {
+            $val = array();
+            $val[] = $no;
+            $val[] = $row->nrp;
+            $val[] = $row->nama;
+            $val[] = $row->namakorps;
+            $val[] = $row->namapangkat;
+            $val[] = $row->namasatker;
+            $val[] = '<div style="text-align:center; width:100%;"><div class="btn-group" role="group">'
+                . '<button type="button" class="btn btn-sm btn-info" onclick="ganti(' . "'" . $row->nrp . "'" . ')">Ganti</button>'
+                . '<button type="button" class="btn btn-sm btn-danger" onclick="hapus(' . "'" . $row->nrp . "'" . ',' . "'" . $row->nama . "'" . ')">Hapus</button>'
+                . '</div></div>';
+            
+            $data[] = $val;
+
+            $no++;
+        }
+        $output = array("data" => $data);
+        echo json_encode($output);
+        
     }
 
-    public function tambah() {
-        $data['korps'] = $this->mKorps->findAll();
-        $data['satker'] = $this->mSatker->findAll();
-        $data['pangkat'] = $this->mpangkat->findAll();
-
-        return view('personil/tambah', $data);
-    }
-
-    public function create() {
+    public function ajax_add() {
         $data = array(
             'nrp' => $this->request->getPost('nrp'),
             'nama' => $this->request->getPost('nama'),
@@ -59,12 +72,12 @@ class Personil extends BaseController
         }
     }
 
-    public function ganti($id) {
+    public function show($id) {
         $data['list'] = $this->model->find($id);
         return view('personil/ganti', $data);
     }
 
-    public function update() {
+    public function ajax_edit() {
         $data = array(
             'nrp' => $this->request->getPost('nrp'),
             'nama' => $this->request->getPost('nama'),
