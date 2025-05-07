@@ -5,11 +5,27 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Data Personil <small>Maintenance data personil</small></h3>
+                <h3>Pendidikan Formal <small>Maintenance data pend formal</small></h3>
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="row" style="display: block;">
+            <div class="col-md-12 col-sm-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class="form-horizontal form-label-left">
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-2 col-sm-2 label-align" >Nama Personil</label>
+                                <div class="col-md-10 col-sm-10 ">
+                                    <input type="text" class="form-control" readonly value="<?php echo $head->nama.', NRP : '. $head->nrp; ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="x_panel">
                     <div class="x_title">
@@ -21,11 +37,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>NRP</th>
-                                    <th>Nama</th>
-                                    <th>Korps</th>
-                                    <th>Pangkat</th>
-                                    <th>Satker</th>
+                                    <th>Tempat Pendidikan</th>
+                                    <th>Tahun</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -67,10 +80,6 @@
                             <label class="form-label">Korps</label>
                             <select id="korps" name="korps" class="form-control">
                                 <option value="">-- Pilih Korps --</option>
-                                <?php foreach ($korps as $row): ?>
-                                    <option value="<?php echo $row->idkorps; ?>"><?php echo $row->namakorps; ?></option>
-                                <?php endforeach; ?>
-
                             </select>
                         </div>
                     </div>
@@ -79,9 +88,6 @@
                             <label class="form-label">Pangkat</label>
                             <select id="pangkat" name="pangkat" class="form-control">
                                 <option value="">-- Pilih Pangkat --</option>
-                                <?php foreach ($pangkat as $row): ?>
-                                    <option value="<?php echo $row->idpangkat; ?>"><?php echo $row->namapangkat; ?></option>
-                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -90,9 +96,6 @@
                             <label class="form-label">Satker</label>
                             <select id="satker" name="satker" class="form-control">
                                 <option value="">-- Pilih Satker --</option>
-                                <?php foreach ($satker as $row): ?>
-                                    <option value="<?php echo $row->idsatker; ?>"><?php echo $row->namasatker; ?></option>
-                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -109,100 +112,7 @@
 <!-- /page content -->
 <script type="text/javascript">
     
-    var save_method; //for save method string
-    var table;
-
-    $(document).ready(function () {
-        table = $('#tb').DataTable({
-            ajax: "<?php echo base_url('personilajax/ajaxlist'); ?>",
-            ordering:false
-        });
-    });
-
-    function reload() {
-        table.ajax.reload(null, false); //reload datatable ajax 
-    }
-
-    function tambah(){
-        save_method = 'add';
-        $('#form')[0].reset(); // reset form on modals
-        $('.modal-title').text('Tambah Data'); // Set Title to Bootstrap modal title
-        $('#modal_form').modal('show'); // show bootstrap modal
-    }
-
-    function save(){
-        var url;
-        if(save_method == 'add') {
-            url = "<?php echo base_url('personilajax/ajax_add'); ?>";
-        } else {
-            url = "<?php echo base_url('personilajax/ajax_edit'); ?>";
-        }
-
-        // ajax adding data to database
-        $.ajax({
-            url : url,
-            type: "POST",
-            data: $('#form').serialize(),
-            dataType: "JSON",
-            success: function(data) {
-                alert(data.status);
-                $('#modal_form').modal('hide');
-                reload(); // reload datatable ajax
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Error adding / update data' + errorThrown);
-            }
-        });
-    }
-
-    function hapus(id, nama) {
-        var result = confirm("Apakah Anda yakin ingin menghapus siswa dengan nama " + nama + " ");
-        if (result) {
-            $.ajax({
-                url: "<?php echo base_url('personilajax/hapus'); ?>/" + id,
-                type: "GET",
-                dataType: "JSON",
-                success: function (data) {
-                    alert(data.status);
-                    reload();
-
-                }, error: function (jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });    
-        }
-        
-    }
-
-    function ganti(id) {
-        save_method = 'update';
-        $('#form')[0].reset();
-        $('#modal_form').modal('show');
-        $('.modal-title').text('Ganti Personil');
-        $.ajax({
-            url: "<?php echo base_url('personilajax/show'); ?>/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function (data) {
-                $('[name="kode"]').val(data.idpersonil);
-                $('[name="nrp"]').val(data.nrp);
-                $('[name="nama"]').val(data.nama);
-                $('[name="korps"]').val(data.idkorps);
-                $('[name="pangkat"]').val(data.idpangkat);
-                $('[name="satker"]').val(data.idsatker);
-            }, error: function (jqXHR, textStatus, errorThrown) {
-                iziToast.error({
-                    title: 'Error',
-                    message: "Error json " + errorThrown,
-                    position: 'topRight'
-                });
-            }
-        });
-    }
-
-    function pendformal(id) {
-        window.location.href = "<?php echo base_url('personilajax/detil/'); ?>" + id;
-    }
+    
 
 </script>
 <?php echo $this->endSection(); ?>

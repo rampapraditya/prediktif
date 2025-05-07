@@ -33,7 +33,7 @@
                             <li><a href="<?php echo base_url('korps'); ?>">Korps</a></li>
                             <li><a href="<?php echo base_url('pangkat'); ?>">Pangkat</a></li>
                             <li><a href="<?php echo base_url('satker'); ?>">Satker</a></li>
-                            <li><a href="<?php echo base_url('personil'); ?>">Personil</a></li>
+                            <li><a href="<?php echo base_url('personilajax'); ?>">Personil</a></li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>

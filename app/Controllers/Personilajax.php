@@ -6,6 +6,7 @@ use App\Models\PersonilModel;
 use App\Models\KorpsModel;
 use App\Models\SatkerModel;
 use App\Models\PangkatModel;
+use App\Models\PendidikanModel;
 use App\Libraries\Modul;
 
 class Personilajax extends BaseController
@@ -15,6 +16,7 @@ class Personilajax extends BaseController
     private $mKorps;
     private $mSatker;
     private $mpangkat;
+    private $pendidikan;
     private $modul;
     
     public function __construct() {
@@ -22,6 +24,7 @@ class Personilajax extends BaseController
         $this->mKorps = new KorpsModel();
         $this->mSatker = new SatkerModel();
         $this->mpangkat = new PangkatModel();
+        $this->pendidikan = new PendidikanModel();
 
         $this->modul = new Modul();
     }
@@ -46,8 +49,9 @@ class Personilajax extends BaseController
             $val[] = $row->namakorps;
             $val[] = $row->namapangkat;
             $val[] = $row->namasatker;
-            $val[] = '<button type="button" class="btn btn-sm btn-primary" onclick="ganti(' . $row->nrp . ');">Ganti</button>
-                      <button type="button" class="btn btn-sm btn-danger" onclick="hapus(' . $row->nrp . ');">Hapus</button>';
+            $val[] = '<button type="button" class="btn btn-sm btn-primary" onclick="ganti(' . "'" . $row->idpersonil . "'" . ');">Ganti</button>
+                      <button type="button" class="btn btn-sm btn-danger" onclick="hapus(' . "'" . $row->idpersonil . "'" . ',' . "'" . $row->nama . "'" . ');">Hapus</button>
+                      <button type="button" class="btn btn-sm btn-info" onclick="pendformal(' . "'" . $row->idpersonil . "'" . ');">Pend Formal</button>';
             $data[] = $val;
             $no++;
         }
@@ -70,12 +74,12 @@ class Personilajax extends BaseController
         }
     }
 
-    public function ganti($id) {
-        $data['list'] = $this->model->find($id);
-        return view('personil/ganti', $data);
+    public function show($id) {
+        $list = $this->model->find($id);
+        echo json_encode($list);
     }
 
-    public function update() {
+    public function ajax_edit() {
         $data = array(
             'nrp' => $this->request->getPost('nrp'),
             'nama' => $this->request->getPost('nama'),
@@ -83,26 +87,42 @@ class Personilajax extends BaseController
             'idpangkat' => $this->request->getPost('pangkat'),
             'idsatker' => $this->request->getPost('satker'),
         );
-        $idpersonil = $this->request->getPost('id');
+        $idpersonil = $this->request->getPost('kode');
         if ($this->model->update($idpersonil, $data)) {
-            $this->modul->pesan_halaman("Data tersimpan", "korps");
+            echo json_encode(array("status" => "Data tersimpan"));
         }else{
-            $this->modul->pesan_halaman("Data gagal tersimpan", "korps");
+            echo json_encode(array("status" => "Data gagal tersimpan"));
         }
     }
 
     public function hapus($id = null){
-        $data = $this->model->find($id);
-        if (!$data) {
-            $this->modul->pesan_halaman("Data tidak ditemukan", "korps");
-        }else{
-            if ($this->model->delete($id)) {
-                $this->modul->pesan_halaman("Data terhapus", "korps");
-            } else {
-                $this->modul->pesan_halaman("Data gagal terhapus", "korps");
-            }
+        if ($this->model->delete($id)) {
+            echo json_encode(array("status" => "Data terhapus"));
+        } else {
+            echo json_encode(array("status" => "Data gagal terhapus"));
         }
-        
     }
 
+    public function detil($id = null) {
+        $data['head'] = $this->model->find($id);
+        return view('personil_ajax/detil', $data);
+    }
+
+    public function ajaxpendidikan($id = null) {
+        $data = array();
+        $list = $this->pendidikan->find($id);
+        $no = 1;
+        foreach ($list as $row) {
+            $val = array();
+            $val[] = $no;
+            $val[] = $row->namasekolah;
+            $val[] = $row->tahun;
+            $val[] = '<button type="button" class="btn btn-sm btn-primary" onclick="ganti(' . "'" . $row->idpendformal . "'" . ');">Ganti</button>
+                      <button type="button" class="btn btn-sm btn-danger" onclick="hapus(' . "'" . $row->idpendformal . "'" . ',' . "'" . $no . "'" . ');">Hapus</button>';
+            $data[] = $val;
+            $no++;
+        }
+        $output = array("data" => $data);
+        echo json_encode($output);
+    }
 }

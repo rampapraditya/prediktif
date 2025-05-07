@@ -75,4 +75,6 @@ $routes->group('personilajax', function ($routes) {
     $routes->get('show/(:any)', 'Personilajax::show/$1');
     $routes->post('ajax_edit', 'Personilajax::ajax_edit');
     $routes->get('hapus/(:any)', 'Personilajax::hapus/$1');
+    $routes->get('detil/(:any)', 'Personilajax::detil/$1');
+    $routes->get('ajaxpendidikan/(:any)', 'Personilajax::ajaxpendidikan/(:any)');
 });
